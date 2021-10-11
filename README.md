@@ -17,7 +17,7 @@ Ejemplos:
 ![image](https://user-images.githubusercontent.com/91923931/136719110-d7f3cc94-b565-4597-b706-89da31a765de.png)
 
 
-# *Ejercicio 1 con ruta estatica*
+# *RIPv2*
 
 ![image](https://user-images.githubusercontent.com/91923931/136719169-8d11ae39-197c-4c07-990e-b009aa880525.png)
 
@@ -30,7 +30,7 @@ Ejemplos:
 ![image](https://user-images.githubusercontent.com/91923931/136719229-179dd312-3c13-4019-9fd6-f32aaaac3699.png)
 
 
-# *Ejercicio 1 con ruta estatica*
+# *EIGRP*
 
 ![image](https://user-images.githubusercontent.com/91923931/136719360-e8f78a08-7b66-4941-a0e9-28e7aaf94652.png)
 
