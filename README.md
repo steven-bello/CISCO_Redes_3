@@ -8,7 +8,7 @@ Topologías en packet tracer y comandos en .txt usados para implementar o resolv
 
 Ejemplos:
 
-# *Ejercicio 1 con ruta estatica*
+# *Ruta estatica*
 
 ![image](https://user-images.githubusercontent.com/91923931/136719517-438261c6-3a44-43d7-8c66-519cdffeb3c0.png)
 
