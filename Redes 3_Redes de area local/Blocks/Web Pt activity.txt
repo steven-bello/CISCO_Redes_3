@@ -1,0 +1,18 @@
+Redes 3
+Web Pt activity
+R1
+ena
+conf t
+ipv6 unicast-routing
+ipv6 router eigrp 1
+no shut
+eigrp router-id 1.1.1.1
+
+exit
+
+int g0/0
+ipv6 eigrp 1
+int s0/0/0
+ipv6 eigrp 1
+int s0/0/1
+ipv6 eigrp 1

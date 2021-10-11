@@ -1,0 +1,90 @@
+
+ROUTER A 0
+R2
+enable
+configure terminal
+no ip domain-lookup
+ipv6 unicast-routing
+interface g0/0
+ipv6 address 2001:DB8:CAFE:2::1/64
+no shutdown
+interface se0/0/0
+ipv6 address 2001:DB8:CAFE:A001::2/64
+clock rate 64000
+no shutdown
+exit
+interface se0/0/1
+ipv6 address 2001:DB8:CAFE:A002::1/64
+clock rate 64000
+no shutdown
+end
+wr
+
+conf t
+ipv6 router ospf 10 
+router-id 2.2.2.2
+exit
+
+int g0/0
+ipv6 ospf 10 area 0
+int s0/0/0
+ipv6 ospf 10 area 0
+int s0/0/1
+ipv6 ospf 10 area 0
+end
+wr
+
+ROUTER A 1
+R1
+enable
+configure terminal
+no ip domain-lookup
+ipv6 unicast-routing
+interface g0/0
+ipv6 address 2001:DB8:CAFE:1::1/64
+no shutdown
+interface se0/0/0
+ipv6 address 2001:DB8:CAFE:A001::1/64
+no shutdown
+end
+wr
+
+conf t 
+ipv6 router ospf 10
+router-id 1.1.1.1
+exit
+interface g0/0
+ipv6 ospf 10 area 1 
+interface s0/0/0 
+ipv6 ospf 10 area 0
+end
+wr
+
+ROUTER A 2
+R3
+enable
+configure terminal
+no ip domain-lookup
+ipv6 unicast-routing
+interface g0/0
+ipv6 address 2001:DB8:CAFE:3::1/64
+no shutdown
+exit
+interface se0/0/1
+ipv6 address 2001:DB8:CAFE:A002::2/64
+no shutdown
+end
+wr
+
+conf t
+ipv6 router ospf 10
+router-id 3.3.3.3
+exit
+int g0/0
+ipv6 ospf 10 area 2
+int s0/0/1
+ipv6 ospf 10 area 0
+end
+wr
+
+sh ipv6 ospf neighbor

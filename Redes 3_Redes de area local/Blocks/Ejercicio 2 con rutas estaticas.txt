@@ -1,0 +1,99 @@
+-->R1
+enable
+configure terminal
+hostname R1
+enable secret class
+no ip domain-lookup
+service password-encryption
+banner motd "Prohibido el acceso no autorizado a este dispositivo"
+line con 0
+password cisco
+login
+line vty 0 15
+password cisco
+login
+exit
+interface fa0/0
+ip address 192.168.1.1 255.255.255.0
+no shutdown
+interface se0/0/0
+ip address 10.0.1.1 255.255.255.0
+clock rate 64000
+no shutdown
+exit
+end
+wr
+-->Rutas estaticas R1
+conf t
+ip route 192.168.2.0 255.255.255.0 10.0.1.2
+ip route 192.168.3.0 255.255.255.0 10.0.1.2
+ip route 10.0.2.0 255.255.255.0 10.0.1.2
+end
+wr
+
+-->R2
+enable
+configure terminal
+hostname R2
+enable secret class
+no ip domain-lookup
+service password-encryption
+banner motd "Prohibido el acceso no autorizado a este dispositivo"
+line con 0
+password cisco
+login
+line vty 0 15
+password cisco
+login
+exit
+interface fa0/0
+ip address 192.168.2.1 255.255.255.0
+no shutdown
+interface se0/0/1
+ip address 10.0.1.2 255.255.255.0
+no shutdown
+interface se0/0/0
+ip address 10.0.2.1 255.255.255.0
+clock rate 64000
+no shutdown
+exit
+end
+wr
+-->Rutas estaticas R2
+conf t
+ip route 192.168.1.0 255.255.255.0 10.0.1.1
+ip route 192.168.3.0 255.255.255.0 10.0.2.2
+end
+wr
+
+-->R3
+enable
+configure terminal
+hostname R3
+enable secret class
+no ip domain-lookup
+service password-encryption
+banner motd "Prohibido el acceso no autorizado a este dispositivo"
+line con 0
+password cisco
+login
+line vty 0 15
+password cisco
+login
+exit
+interface fa0/0
+ip address 192.168.3.1 255.255.255.0
+no shutdown
+interface se0/0/1
+ip address 10.0.2.2 255.255.255.0
+no shutdown
+exit
+end
+wr
+-->Rutas estaticas R3
+conf t
+ip route 192.168.1.0 255.255.255.0 10.0.2.1
+ip route 192.168.2.0 255.255.255.0 10.0.2.1
+ip route 10.0.1.0 255.255.255.0 10.0.2.1
+end
+wr

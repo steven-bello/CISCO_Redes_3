@@ -1,0 +1,45 @@
+Clase 12 febrero redes
+Hot Standby Rounting Protocol
+(HSRP)
+
+R1
+ena
+conf t
+int fa0/0
+ip add 172.16.10.2 255.255.255.0
+standby version 2
+standby 1 ip 172.16.10.1
+standby 1 preempt
+no shut
+end
+wr
+
+conf t
+int s0/0/0
+no shut
+end
+wr
+
+sh standby
+sh standby brief
+
+R2
+ena
+conf t
+int fa0/0
+ip add 172.16.10.3 255.255.255.0
+standby version 2
+standby 1 ip 172.16.10.1
+standby 1 preempt
+no shut
+end
+wr
+
+conf t
+int s0/0/1
+no shut
+end
+wr
+
+sh standby
+sh standby brief

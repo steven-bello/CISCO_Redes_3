@@ -1,0 +1,114 @@
+Redes 3
+S1
+enable
+conf t
+ho S1
+interface range fa0/1-2
+switchport mode trunk
+exit
+interface range fa 0/3 -24
+switchport mode access
+end
+wr
+
+S2
+enable
+conf t
+ho S2
+interface range fa0/1
+switchport mode trunk
+exit
+interface range fa 0/2 -24
+switchport mode access
+end
+wr
+
+S3
+enable
+conf t
+ho S3
+interface range fa0/1
+switchport mode trunk
+exit
+interface range fa 0/2 -24
+switchport mode access
+end
+
+DONE
+-->IPs
+PC1
+192.168.1.1/24
+Vlan 10
+PC2
+192.168.1.2/24
+Vlan 20
+PC3
+192.168.1.3/24
+Vlan 10
+PC4
+192.168.1.4/24
+Vlan 20
+
+//VTP
+S1
+conf t
+vtp doamin Practica
+vtp password seguro
+vtp mode server
+end
+wr
+
+S2
+ena
+conf t
+vtp doamin Practica
+vtp password seguro
+vtp mode client
+end
+wr
+S3
+ena
+conf t
+vtp doamin Practica
+vtp password seguro
+vtp mode client
+end
+wr
+
+//VLANS
+S1
+conf t
+sh vlan brief
+
+*checar salida en CLI*
+1 default
+1002 fddi-default
+1003 token-ring-default
+1004 fddinet-default
+1005 trnet-default
+
+S2
+conf t
+sh vlan brief
+*checar salida en CLI*
+
+S3
+conf t
+sh vlan brief
+*checar salida en CLI*
+
+//VLAN 10
+S1
+conf t
+vlan 10
+name Administracion
+vlan 20 
+name Ventas
+end
+wr
+
+S2
+conf t
+sh vtp status
+
+Todo se controla en el servidor

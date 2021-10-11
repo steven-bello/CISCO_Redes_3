@@ -1,0 +1,28 @@
+Redes 3
+C23M
+OSPF multiarea con IPV4
+R1841
+
+configurar maquinas
+fast
+puertos seriales
+puede ser 0.0.0.0 o WM ej 0.0.0.3
+
+
+R1
+ena
+conf t
+router ospf 10
+router -id 1.1.1.1
+network 10.1.1.1 0.0.0.0 area 1
+network 10.1.2.1 0.0.0.0 area 1
+network 192.168.10.1 0.0.0.0 area 0
+
+Verificar
+sh ip ospf neighbor
+ip ospf 
+ip ospf interface
+ip ospf protocols
+ip ospf interface brief
+ip route ospf
+sh ip ospf database

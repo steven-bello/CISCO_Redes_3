@@ -1,0 +1,115 @@
+OSPF_Multiarea_C23Marzo
+Redes 3
+C23M
+OSPF Multiarea
+
+->Amarillo
+->Router2
+ena 
+conf t
+ho Router2
+interface fa0/0
+ip add 10.2.1.1 255.255.255.0
+no shut
+exit
+interface s0/0/0
+ip add 192.168.10.1 255.255.255.252
+no shut
+exit
+interface s0/0/1
+ip add 192.168.10.6 255.255.255.252
+clock rate 64000
+no shut
+end
+wr
+sh ip ospf database
+
+->OSPF R2
+ena
+conf t
+router ospf 10
+router-id 2.2.2.2
+network 192.168.10.0 0.0.0.3 area 0
+network 192.168.10.4 0.0.0.3 area 0
+network 10.2.1.0 0.0.0.255 area 0
+end
+wr
+
+->PC2
+10.2.1.12 255.255.255.0
+
+->Naranja 
+->Router1
+ena 
+conf t
+ho Router1
+interface fa0/0
+ip add 10.1.1.1 255.255.255.0
+no shut
+exit
+interface fa0/1
+ip add 10.1.2.1 255.255.255.0
+no shut
+exit
+interface s0/0/0
+ip add 192.168.10.2 255.255.255.252
+clock rate 64000
+no shut
+end
+wr
+
+->OSPF R1
+ena
+conf t
+router ospf 10
+router-id 1.1.1.1
+network 10.1.1.1 0.0.0.0 area 1
+network 10.1.2.1 0.0.0.0 area 1
+network 192.168.10.1 0.0.0.0 area 0
+end
+wr
+
+->PC4
+10.1.1.14 255.255.255.0
+->PC3
+10.1.2.13 255.255.255.0
+
+->Azul
+->Router3
+ena 
+conf t
+ho Router3
+interface fa0/0
+ip add 192.168.1.1 255.255.255.0
+no shut
+exit
+interface fa0/1
+ip add 192.168.2.1 255.255.255.0
+no shut
+exit
+interface s0/0/1
+ip add 192.168.10.5 255.255.255.252
+no shut
+end
+wr
+
+->OSPF R3
+ena
+conf t
+router ospf 10
+router-id 3.3.3.3
+network 192.168.10.6 0.0.0.0 area 0
+network 192.168.1.1 0.0.0.0 area 2
+network 192.168.2.1 0.0.0.0 area 2
+end
+wr
+
+->PC1
+192.168.1.10 255.255.255.0
+->PC5
+192.168.2.15 255.255.255.0
+
+ena
+erase startup-config
+
+reload

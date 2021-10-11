@@ -1,0 +1,148 @@
+Redes 3
+clase 16 de marzo
+EIGRP
+
+R1
+enable 
+configure terminal
+hostname Router1
+enable secret class
+no ip domain-lookup
+service password-encryption
+banner motd "Prohibido el acceso no autorizado a este dispositivo"
+line con 0
+password cisco
+login
+line vty 0 4
+password cisco
+login
+exit
+interface gi0/0
+ip add 172.16.1.1 255.255.255.0
+no shut
+exit
+interface s0/0/0
+ip add 172.16.3.1 255.255.255.252
+no shut
+exit
+interface s0/0/1
+ip add 192.168.10.5 255.255.255.252
+no shut
+end
+copy run start
+
+PC 1:
+172.16.1.24 255.255.255.0
+
+R2
+enable 
+configure terminal
+hostname Router2
+enable secret class
+no ip domain-lookup
+service password-encryption
+banner motd "Prohibido el acceso no autorizado a este dispositivo"
+line con 0
+password cisco
+login
+line vty 0 4
+password cisco
+login
+exit
+interface gi0/0
+ip add 192.168.1.1 255.255.255.0
+no shut
+exit
+interface s0/0/0
+ip add 192.168.10.9 255.255.255.252
+no shut
+exit
+interface s0/0/1
+ip add 192.168.10.6 255.255.255.252
+no shut
+end
+copy run start
+
+PC 2:
+192.168.1.24 255.255.255.0
+
+R3
+enable 
+configure terminal
+hostname Router3
+enable secret class
+no ip domain-lookup
+service password-encryption
+banner motd "Prohibido el acceso no autorizado a este dispositivo"
+line con 0
+password cisco
+login
+line vty 0 4
+password cisco
+login
+exit
+interface gi0/0
+ip add 172.17.2.1 255.255.255.0
+no shut
+exit
+interface s0/0/0
+ip add 172.16.3.2 255.255.255.252
+no shut
+exit
+interface s0/0/1
+ip add 192.168.10.10 255.255.255.252
+no shut
+end
+copy run start
+
+PC 3:
+172.17.2.24 255.255.255.0
+
+EIGRP:
+
+R1 
+conf t
+router eigrp 1
+network 172.16.1.0 0.0.0.255
+network 172.16.3.0 0.0.0.3
+network 192.168.10.4 0.0.0.3
+passive-interface g0/0
+no auto-summary
+end
+wr
+sh ip eigrp neighbors
+sh ip protocols
+sh ip route
+
+R2 
+conf t
+router eigrp 1
+network 192.168.10.8 0.0.0.3
+network 192.168.10.4 0.0.0.3
+network 192.168.1.0 0.0.0.255
+passive-interface g0/0
+no auto-summary
+end
+wr
+sh ip eigrp neighbors
+sh ip protocols
+sh ip route
+
+R3 
+conf t
+router eigrp 1
+network 172.17.2.0 0.0.0.255
+network 172.16.3.0 0.0.0.3
+network 192.168.10.8 0.0.0.3
+passive-interface g0/0
+no auto-summary
+end
+wr
+sh ip eigrp neighbors
+sh ip protocols
+sh ip route
+
+Verificar EIGRP IPv4:
+sh ip eigrp neighbors: tabla y adyacencias de vecinos
+sh ip protocols: parametros e info acerca del estado actual del proceso activo de protocolo de routing IPv4
+sh ip route: verificar rutas en la tabla de routing, convergencia

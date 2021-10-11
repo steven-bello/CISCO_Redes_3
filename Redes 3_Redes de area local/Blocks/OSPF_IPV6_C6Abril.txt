@@ -1,0 +1,64 @@
+Redes 3
+C6A
+PC 1 derecha
+ipv6 2001:A:A:B::6 /64
+link local: FE80::29021FF:FE95:5617
+Gateway:2001:A:A:B::9
+
+PC 3 derecha
+ipv6 2001:A:A:B::5 /64
+link local: auto
+Gateway:2001:A:A:B::9 
+
+PC 0 izquierda
+ipv6 2001:A:A:C::5 /64
+link local: auto
+Gateway:2001:A:A:C::9
+
+PC 2 izquierda
+ipv6 2001:A:A:C::6 /64
+link local: auto
+Gateway:2001:A:A:C::9
+
+R izquierda
+ena
+conf t
+ipv6 unicast-routing
+ipv6 router eigrp 2
+eigrp router-id 1.0.0.0
+no shut
+exit
+
+int fa0/1
+ipv6 eigrp 2
+int s0/0/0
+ipv6 eigrp 2
+exit
+int s0/0/0 
+ipv6 add 2001:A:A:A::6/64
+no shut
+end
+wr
+
+show ipv6 eigrp neighbors
+show ipv6 route
+
+R derecha
+ena
+conf t
+ipv6 unicast-routing
+ipv6 router eigrp 2
+eigrp router-id 2.0.0.0
+no shut
+exit
+
+int fa0/1
+ipv6 eigrp 2
+int s0/0/0
+ipv6 eigrp 2
+exit
+int s0/0/0 
+ipv6 add 2001:A:A:A::5/64
+no shut
+end
+wr

@@ -1,0 +1,33 @@
+Etherchannel protocol LACP
+
+S1
+ena
+conf t
+interface range fa 0/1 - 4
+channel-protocol lacp
+channel-group 1 mode active
+no shut
+exit
+interface port-channel 1
+switchport mode trunk
+exit
+end
+wr
+
+sh etherchannel
+
+S2
+ena
+conf t
+interface range fa 0/1 - 4
+channel-protocol lacp
+channel-group 1 mode passive
+no shut
+exit
+interface port-channel 1
+switchport mode trunk
+exit
+end
+wr
+
+sh etherchannel

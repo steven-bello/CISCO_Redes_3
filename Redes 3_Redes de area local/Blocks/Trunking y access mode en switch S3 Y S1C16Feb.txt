@@ -1,0 +1,93 @@
+clase 16 de febrero 
+modos troncales y modos de acceso 
+luego esos 2 comandos en S3 y S1
+prioridad de puertos en las VLAN
+cable cruzado
+puertos desocupados modo acceso
+
+S1
+enable
+conf t
+ho S1
+interface fa0/2
+switchport mode trunk
+exit
+interface fa0/4
+switchport mode trunk
+exit
+interface fa 0/1
+switchport mode access
+exit
+interface fa 0/3
+switchport mode access
+exit
+interface range fa 0/5-24
+switchport mode access
+end
+wr
+
+S2
+enable
+conf t
+ho S2
+interface fa0/2
+switchport mode trunk
+exit
+interface fa0/3
+switchport mode trunk
+exit
+interface fa 0/1
+switchport mode access
+exit
+interface range fa 0/4-24
+switchport mode access
+end
+wr
+
+S3
+enable
+conf t
+ho S3
+interface fa0/1
+switchport mode trunk
+exit
+interface fa0/4
+switchport mode trunk
+exit
+interface fa 0/2
+switchport mode access
+exit
+interface fa 0/3
+switchport mode access
+exit
+interface range fa 0/5-24
+switchport mode access
+end
+wr
+
+VLANS
+S1,S2,S3
+ena
+conf t
+vlan 10
+name Diez
+vlan 20 
+name Veinte
+end
+wr
+sh vlan brief -->
+
+STP
+S1
+conf t
+spanning-tree vlan 10 root primary
+spanning-tree vlan 20 root secondary
+exit
+wr
+
+S3
+conf t
+spanning-tree vlan 20 root primary
+spanning-tree vlan 10 root secondary
+exit
+wr

@@ -1,0 +1,70 @@
+
+Redes 3
+OSPF una area
+ 
+R0
+10.64.0.1/24
+WM: 0.0.0.255
+R1
+10.64.0.2/24
+WM: 0.0.0.255
+
+10.2.1.2/30
+WM: 0.0.0.3
+R2
+10.2.1.1/30
+WM: 0.0.0.3
+
+R0
+ena 
+conf t
+ho Router0
+interface s0/0/0
+ip add 10.64.0.1 255.255.255.0
+no shut
+exit
+router ospf 1
+network 10.64.0.0 0.0.0.255 area 0
+network 10.2.1.0 0.0.0.3 area 0
+interface loopback 0 
+ip add 10.65.0.1 255.255.255.255
+end
+wr
+sh ip ospf neighbor
+
+R1
+ena 
+conf t
+ho Router1
+interface s0/0/0
+ip add 10.64.0.2 255.255.255.0
+no shut
+exit
+interface s0/0/1
+ip add 10.2.1.2 255.255.255.252
+exit
+router ospf 1
+network 10.64.0.0 0.0.0.255 area 0
+network 10.2.1.0 0.0.0.3 area 0
+interface loopback 0 
+ip add 10.65.0.1 255.255.255.255
+end
+wr
+sh ip ospf neighbor
+
+R2
+ena 
+conf t
+ho Router2
+interface s0/0/1
+ip add 10.2.1.1 255.255.255.252
+no shut
+exit
+router ospf 1
+network 10.64.0.0 0.0.0.255 area 0
+network 10.2.1.0 0.0.0.3 area 0
+interface loopback 0 
+ip add 10.65.0.1 255.255.255.255
+end
+wr
+sh ip ospf neighbor
