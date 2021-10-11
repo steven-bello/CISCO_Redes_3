@@ -10,7 +10,7 @@ Ejemplos:
 
 # *Ejercicio 1 con ruta estatica*
 
-![image](https://user-images.githubusercontent.com/91923931/136719075-3db7dd39-bfb9-475b-9c3b-481dc0f37bc1.png)
+![image](https://user-images.githubusercontent.com/91923931/136719517-438261c6-3a44-43d7-8c66-519cdffeb3c0.png)
 
 ![image](https://user-images.githubusercontent.com/91923931/136719099-c308e4e0-80b8-41ff-8db2-c584c06c724b.png)
 
